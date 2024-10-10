@@ -5,15 +5,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>sweid4keycloak</groupId>
 	<artifactId>bankid4keycloak</artifactId>
-	<version>20.0.0-SNAPSHOT</version>
+	<version>25.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<keycloak.version>20.0.5</keycloak.version>
-		<google.zxing.version>3.4.0</google.zxing.version>
+		<keycloak.version>25.0.1</keycloak.version>
+		<google.zxing.version>3.5.3</google.zxing.version>
 	</properties>
 	<licenses>
 		<license>
@@ -98,18 +98,40 @@
 				</configuration>
 			</plugin>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<filters>
+					  <filter>
+						<artifact>com.google.zxing:core</artifact>
+						<excludes>
+						  <exclude>META-INF/MANIFEST.MF</exclude>
+						</excludes>
+					  </filter>
+					  <filter>
+						<artifact>com.google.zxing:javase</artifact>
+						<excludes>
+						  <exclude>META-INF/MANIFEST.MF</exclude>
+						</excludes>
+					  </filter>
+					  <filter>
+						<artifact>com.github.jai-imageio:jai-imageio-core</artifact>
+						<excludes>
+						  <exclude>META-INF/MANIFEST.MF</exclude>
+						</excludes>
+					  </filter>
+					</filters>
+				  </configuration>
+			</plugin>
 			<plugin>
 				<groupId>external.atlassian.jgitflow</groupId>
 				<artifactId>jgitflow-maven-plugin</artifactId>
